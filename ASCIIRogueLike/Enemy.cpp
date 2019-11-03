@@ -1,6 +1,13 @@
 #include "Enemy.h"
 
-Enemy::Enemy(string name, char unitTile, int health, int attack, int defence, int xp, int level)
+
+/* INCLUDES */
+#include <random>
+#include <ctime>
+
+
+/* MEMBER FUNCTIONS */
+Enemy::Enemy(std::string name, char unitTile, int health, int attack, int defence, int xp, int level)
 {
 	_name = name;
 	_unitTile = unitTile;
@@ -9,10 +16,8 @@ Enemy::Enemy(string name, char unitTile, int health, int attack, int defence, in
 	_defence = defence;
 	_xp = xp;
 	_level = level;
-}
-
-Enemy::~Enemy()
-{
+	_x = 0;
+	_y = 0;
 }
 
 void Enemy::getPosition(int &x, int &y)
@@ -29,8 +34,8 @@ void Enemy::setPosition(int x, int y)
 
 int Enemy::attackChance()
 {
-	static mt19937 randomEngine(time(NULL));
-	uniform_int_distribution<int> attackPower( 0, _attack);
+	static std::mt19937 randomEngine(time(NULL));
+	std::uniform_int_distribution<int> attackPower( 0, _attack);
 
 	return attackPower(randomEngine);
 }
@@ -52,7 +57,7 @@ int Enemy::takeDamage(int attackChance)
 	return 0;
 }
 
-string Enemy::getEnemyName()
+std::string Enemy::getEnemyName()
 {
 	return _name;
 }
@@ -69,8 +74,8 @@ char Enemy::getChar()
 
 char Enemy::getMove(int playerX, int playerY)
 {
-	static mt19937 randomEngine(time(NULL));
-	uniform_int_distribution<int> moveRoll(0, 6);
+	static std::mt19937 randomEngine(time(NULL));
+	std::uniform_int_distribution<int> moveRoll(0, 6);
 
 	int distance; //from Player
 	int dx = _x - playerX;
