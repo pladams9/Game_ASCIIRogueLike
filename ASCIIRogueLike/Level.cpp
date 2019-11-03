@@ -1,19 +1,17 @@
 #include "Level.h"
 
+
+/* INCLUDES */
 #include <sstream>
+#include <fstream>
+#include <conio.h>
 
-Level::Level()
-{
-}
 
-Level::~Level()
+/* MEMBER FUNCTIONS */
+void Level::loadLevel(std::string fileName, Player &player)
 {
-}
-
-void Level::loadLevel(string fileName, Player &player)
-{
-	ifstream levelFile;
-	string levelLine;
+	std::ifstream levelFile;
+	std::string levelLine;
 
 	//Loading Level File
 	levelFile.open(fileName);
@@ -36,9 +34,9 @@ void Level::loadLevel(string fileName, Player &player)
 	//Processing Level File
 	char unitTile;
 
-	for (int i = 0; i < _levelData.size(); ++i)
+	for (size_t i = 0; i < _levelData.size(); ++i)
 	{
-		for (int j = 0; j < _levelData[i].size(); ++j)
+		for (size_t j = 0; j < _levelData[i].size(); ++j)
 		{
 			unitTile = _levelData[i][j];
 
@@ -71,7 +69,7 @@ void Level::displayLevel()
 {
 	system("cls");
 
-	for (int i = 0; i < _levelData.size(); ++i)
+	for (size_t i = 0; i < _levelData.size(); ++i)
 	{
 		printf("%s", _levelData[i].c_str());
 		printf("\n");
@@ -80,19 +78,10 @@ void Level::displayLevel()
 
 void Level::movePlayer(char move, Player &player)
 {
-	/*char previousUnitUp;
-	char previousUnitDown;
-	char previousUnitRight;
-	char previousUnitLeft;*/
 	int playerX;
 	int playerY;
 
 	player.getPosition(playerX, playerY);
-
-	/*previousUnitUp = _levelData[playerY - 1][playerX];
-	previousUnitDown = _levelData[playerY + 1][playerX];
-	previousUnitLeft = _levelData[playerY][playerX - 1];
-	previousUnitRight = _levelData[playerY][playerX + 1];*/
 
 	switch (move)
 	{
@@ -134,7 +123,7 @@ void Level::movePlayerLogic(Player &player, int moveX, int moveY)
 
 	switch (moveToUnit)
 	{
-		case '.': /*previousUnitUp = _levelData[playerY - 1][playerX];*/
+		case '.':
 			player.setPosition(moveX, moveY);
 			setUnitTile(playerX, playerY, '.');
 			setUnitTile(moveX, moveY, '@');
@@ -146,8 +135,7 @@ void Level::movePlayerLogic(Player &player, int moveX, int moveY)
 		case 'S': battleEnemy(player, moveX, moveY);
 			break;
 
-		case '#': //printf("\nYou hit a wall!!\n");
-			//system("PAUSE>NULL");
+		case '#':
 			break;
 
 		case '~': player.setPosition(moveX, moveY);
@@ -172,6 +160,7 @@ void Level::movePlayerLogic(Player &player, int moveX, int moveY)
 				_levelPath.push_back(ss.str());
 				loadLevel(_levelPath.back(), player);
 			}
+			break;
 
 		case 'x':
 			break;
@@ -200,7 +189,7 @@ void Level::battleEnemy(Player &player, int targetX, int targetY)
 	int attackPower;
 	int attackResult;
 
-	for (int i = 0; i < _enemies.size(); i++)
+	for (size_t i = 0; i < _enemies.size(); i++)
 	{
 		_enemies[i].getPosition(enemyX, enemyY);
 
@@ -259,7 +248,7 @@ void Level::updateEnemyPosition(Player &player)
 
 	player.getPosition(playerX, playerY);
 
-	for (int i = 0; i < _enemies.size(); ++i)
+	for (size_t i = 0; i < _enemies.size(); ++i)
 	{
 		aiMove = _enemies[i].getMove(playerX,playerY);
 		_enemies[i].getPosition(enemyX, enemyY);
@@ -291,8 +280,6 @@ void Level::updateEnemyPosition(Player &player)
 
 void Level::moveEnemyLogic(Player &player, int enemyIndex, int moveX, int moveY)
 {
-	int playerX;
-	int playerY;
 	int enemyX;
 	int enemyY;
 
@@ -302,7 +289,7 @@ void Level::moveEnemyLogic(Player &player, int enemyIndex, int moveX, int moveY)
 
 	switch (moveToUnit)
 	{
-		case '.': /*previousUnitUp = _levelData[playerY - 1][playerX];*/
+		case '.':
 			_enemies[enemyIndex].setPosition(moveX, moveY);
 			setUnitTile(enemyX, enemyY, '.');
 			setUnitTile(moveX, moveY, _enemies[enemyIndex].getChar());
@@ -324,5 +311,5 @@ void Level::clearLevel()
 
 void Level::saveProgress(int levelNum, int x, int y)
 {
-	ofstream saveToFile;
+	std::ofstream saveToFile;
 }

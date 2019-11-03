@@ -1,35 +1,28 @@
-#pragma once
+#ifndef LEVEL_H
+#define LEVEL_H
 
+
+/* INCLUDES */
 #include <vector>
 #include <string>
-#include <fstream>
-#include <cstdio>
-#include <conio.h>
 #include "Player.h"
 #include "Enemy.h"
 
-using std::vector;
-using std::string;
-using std::ifstream;
-using std::ofstream;
-using std::getline;
-using std::to_string;
 
+/* CLASS DECLARATION */
 class Level
 {
 private:
 	int _levelCounter = 1;
-	vector<string> _levelData;
-	vector<Enemy> _enemies;
-	vector<string> _levelPath;
+	std::vector<std::string> _levelData;
+	std::vector<Enemy> _enemies;
+	std::vector<std::string> _levelPath;
 	void movePlayerLogic(Player &player, int moveX, int moveY);
 	void moveEnemyLogic(Player &player, int enemyIndex, int moveX, int moveY);
 	void battleEnemy(Player &player, int targetX, int targetY);
 
 public:
-	Level();
-	~Level();
-	void loadLevel(string fileName, Player &player);
+	void loadLevel(std::string fileName, Player &player);
 	void displayLevel();
 	void movePlayer(char move, Player &player);
 	void updateEnemyPosition(Player &player);
@@ -38,3 +31,6 @@ public:
 	void saveProgress(int levelNum, int x, int y);
 	void clearLevel();
 };
+
+
+#endif // LEVEL_H
