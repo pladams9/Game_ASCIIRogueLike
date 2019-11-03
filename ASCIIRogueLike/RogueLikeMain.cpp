@@ -5,7 +5,7 @@
 
 int main()
 {
-	GameManager gameManger("../levels/Level_1.level");
+	GameManager gameManger("../levels/Level_test.level");
 
 	gameManger.runGame();
 
