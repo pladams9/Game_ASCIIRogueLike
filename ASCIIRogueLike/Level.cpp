@@ -1,5 +1,7 @@
 #include "Level.h"
 
+#include <sstream>
+
 Level::Level()
 {
 }
@@ -165,7 +167,9 @@ void Level::movePlayerLogic(Player &player, int moveX, int moveY)
 			if ((input == 'Y') || (input == 'y'))
 			{
 				clearLevel();
-				_levelPath.push_back("Levels\\Level_" + to_string(++_levelCounter) + ".level");
+				std::stringstream ss;
+				ss << "Levels\\Level_" << ++_levelCounter << ".level";
+				_levelPath.push_back(ss.str());
 				loadLevel(_levelPath.back(), player);
 			}
 

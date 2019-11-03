@@ -1,3 +1,7 @@
+Forked from https://github.com/Plaban9/Game_ASCIIRogueLike
+
+Original README below.
+
 # ASCIIRogueLike
 A C++ Console game based on retro RogueLike games where ASCII characters were used as graphics.
 
