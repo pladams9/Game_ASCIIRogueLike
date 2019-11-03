@@ -168,7 +168,7 @@ void Level::movePlayerLogic(Player &player, int moveX, int moveY)
 			{
 				clearLevel();
 				std::stringstream ss;
-				ss << "Levels\\Level_" << ++_levelCounter << ".level";
+				ss << "../levels/Level_" << ++_levelCounter << ".level";
 				_levelPath.push_back(ss.str());
 				loadLevel(_levelPath.back(), player);
 			}
