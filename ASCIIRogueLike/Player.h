@@ -1,16 +1,13 @@
-#pragma once
-#include <random>
-#include <ctime>
+#ifndef PLAYER_H
+#define PLAYER_H
 
+
+/* CLASS DECLARATIONS */
 enum class PlayerStats
 {
 	XP, ATTACK, DEFENCE, HEALTH
 };
 
-
-using std::mt19937;
-using std::uniform_int_distribution;
-using std::time;
 
 class Player
 {
@@ -28,8 +25,6 @@ private:
 	int _y;
 
 public:
-	Player();
-	~Player();
 	void init(int health, int attack, int defence, int xp, int level);
 	void getPosition(int &x, int &y);
 	void setPosition(int x, int y);
@@ -39,3 +34,6 @@ public:
 	int getPlayerHealth();
 	void unknownEncounter();
 };
+
+
+#endif // PLAYER_H

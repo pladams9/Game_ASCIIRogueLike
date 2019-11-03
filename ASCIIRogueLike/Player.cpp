@@ -1,14 +1,12 @@
 #include "Player.h"
 
-Player::Player()
-{
-}
+
+/* INCLUDES */
+#include <random>
+#include <ctime>
 
 
-Player::~Player()
-{
-}
-
+/* MEMBER FUNCTIONS */
 void Player::init(int health, int attack, int defence, int xp, int level)
 {
 	_health = health;
@@ -32,8 +30,8 @@ void Player::setPosition(int x, int y)
 
 int Player::attackChance()
 {
-	static mt19937 randomEngine(time(NULL));
-	uniform_int_distribution<int> attackPower(0, _attack);
+	static std::mt19937 randomEngine(time(NULL));
+	std::uniform_int_distribution<int> attackPower(0, _attack);
 
 	return attackPower(randomEngine);
 }
@@ -84,8 +82,8 @@ int Player::getPlayerHealth()
 
 void Player::unknownEncounter()
 {
-	static mt19937 randomEngine(time(NULL));
-	uniform_int_distribution<int> bonusChance(0, 3);
+	static std::mt19937 randomEngine(time(NULL));
+	std::uniform_int_distribution<int> bonusChance(0, 3);
 
 	switch (bonusChance(randomEngine))
 	{
